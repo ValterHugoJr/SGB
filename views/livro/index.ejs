@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<% include ../estrutura/head.ejs %>
+</head>
+<body>
+<% include ../estrutura/menu.ejs %>
+<!--CONTEUDO-->
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <%- messages('alerta/mensagem', locals) %>
+            <form action="/livro/create" method="post" autocomplete="off">
+                <input type="hidden" value="<%= livro._id %>" name="livro[_id]">
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input type="text" class="form-control" id="titulo" name="livro[titulo]" maxlength="100" required
+                           autofocus value="<%= livro.titulo %>">
+                    <% if (validacoes.titulo) { %>
+                        <small class="form-text text-muted">
+                            <p class="text-danger font-weight-bold">
+                                Preencha o título
+                            </p>
+                        </small>
+                    <% } %>
+                </div>
+                 <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="autor">Autor:</label>
+                        <input type="text" class="form-control" id="autor" name="livro[autor]" maxlength="30" required
+                               value="<%= livro.autor %>">
+                        <% if (validacoes.autor) { %>
+                            <small class="form-text text-muted">
+                                <p class="text-danger font-weight-bold">
+                                    Preencha o autor
+                                </p>
+                            </small>
+                        <% } %>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="edicao">Edição:</label>
+                        <input type="number" class="form-control" id="edicao" name="livro[edicao]" min="1" required
+                               value="<%= livro.edicao %>">
+                        <% if (validacoes.edicao) { %>
+                            <small class="form-text text-muted">
+                                <p class="text-danger font-weight-bold">
+                                    Preencha a edição
+                                </p>
+                            </small>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="isbn">ISBN:</label>
+                        <input type="text" class="form-control" id="isbn" name="livro[isbn]" minlength="13" required
+                               maxlength="13" value="<%= livro.isbn %>">
+                        <% if (validacoes.isbn) { %>
+                            <small class="form-text text-muted">
+                                <p class="text-danger font-weight-bold">
+                                    Preencha o ISBN
+                                </p>
+                            </small>
+                        <% } %>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="number" class="form-control" id="quantidade" name="livro[quantidade]" min="1" required
+                               value="<%= livro.quantidade %>">
+                        <% if (validacoes.quantidade) { %>
+                            <small class="form-text text-muted">
+                                <p class="text-danger font-weight-bold">
+                                    Preencha a quantidade
+                                </p>
+                            </small>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <button type="submit" class="btn btn-outline-primary"><%- txtBtn %></button>
+                    <% if (lenLivros > 0 && pg_titulo != 'Editar livro') {%> 
+                        <a href="/livro/list">
+                        <button type="button" class='btn btn-outline-primary ml-3'><i class="fas fa-list"></i> Ver todos
+                        </button>
+                    </a>
+                    <%}%>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+<!--CONTEUDO-->
+<% include ../estrutura/scripts.ejs %>
+</body>
+</html>

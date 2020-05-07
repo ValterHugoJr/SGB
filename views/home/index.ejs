@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<% include ../estrutura/head_login.ejs %>
+</head>
+<body>
+<!--CONTEUDO-->
+<form class="box" action="/entrar" method="post" autocomplete="off">
+    <img src="/imagens/sgb-logo_Logo_Logo.svg" width="180">
+    <div class="container">
+            <div class="row justify-content-center">
+            <div class="col-10">
+                <p class="lead mt-2 subtituloLogin">SISTEMA DE GERENCIAMENTO DE BIBLIOTECAS</p>
+            </div>
+            </div>
+    </div>
+    <input type="text" name="usuario[login]" placeholder="Usuário" autofocus required>
+    <input type="password" name="usuario[senha]" placeholder="Senha" required>
+    <% if (msg === 'erro'){%>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="alert alert-danger text-center" role="alert">
+                    Crendenciais inválidas <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+    <%}%>
+    <% if (msg === 'sucesso'){ %>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="alert alert-success text-center" role="alert">
+                    Volte sempre <i class="fas fa-smile-wink"></i>
+                </div>
+            </div>
+        </div>
+    <% } %>
+    <div>
+     <input type="submit" name="" value="Entrar" style="display: inline-block">
+    </div>
+</form>
+<!--CONTEUDO-->
+</body>
+</html>

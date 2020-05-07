@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <% include ../estrutura/head_login.ejs %>
+    <script>
+        function validarCPF(cpf) {
+            let cleanCPF = cpf.replace('.', '').replace('.', '').replace('-', '');
+            let Soma;
+            let Resto;
+            Soma = 0;
+
+            if (cleanCPF === "00000000000" || cleanCPF === "11111111111" || cleanCPF === "22222222222" || cleanCPF === "33333333333" || cleanCPF === "44444444444" || cleanCPF === "55555555555" || cleanCPF === "66666666666" || cleanCPF === "77777777777" || cleanCPF === "88888888888" || cleanCPF === "99999999999") {
+                return false;
+            }
+            for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cleanCPF.substring(i - 1, i)) * (11 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto === 10) || (Resto === 11)) {
+                Resto = 0;
+            }
+            if (Resto !== parseInt(cleanCPF.substring(9, 10))) {
+                return false;
+            }
+            Soma = 0;
+            for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cleanCPF.substring(i - 1, i)) * (12 - i);
+            Resto = (Soma * 10) % 11;
+
+            if ((Resto === 10) || (Resto === 11)) {
+                Resto = 0;
+            }
+            return Resto === parseInt(cleanCPF.substring(10, 11));
+        }
+        function validateform() {
+            let cpf = document.getElementById('cpf').value;
+
+            if (!validarCPF(cpf)) {
+                alert("CPF inválido");
+                document.getElementById("cpf").value = "";
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<!--CONTEUDO-->
+<form class="box" action="/create_usuario" method="post" autocomplete="off" onsubmit="return validateform()">
+    <img src="imagens/sgb-logo_Logo_Logo.svg" width="180">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <p class="lead mt-2 subtituloLogin">SISTEMA DE GERENCIAMENTO DE BIBLIOTECA</p>
+            </div>
+        </div>
+    </div>
+    <input type="text" name="usuario[nome]" placeholder="Nome" required autofocus>
+    <input type="text" name="usuario[sobrenome]" placeholder="Sobrenome" required>
+    <input type="text" name="usuario[cpf]" id="cpf" placeholder="CPF" minlength="14" required>
+    <input type="text" name="usuario[login]" placeholder="Usuário" required>
+    <input type="password" name="usuario[senha]" placeholder="Senha" required>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="usuario[tipo]" id="inlineRadio1" value="user" checked>
+        <label class="form-check-label opcoes" for="inlineRadio1">Usuário</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="usuario[tipo]" id="inlineRadio2" value="admin" >
+        <label class="form-check-label opcoes" for="inlineRadio2">Admin</label>
+    </div>
+
+    <div>
+        <a href="/" style="text-decoration: none; display: inline-block"><input type="button" name="" value="Voltar"></a>
+        <input type="submit" name="" value="Cadastrar" style="display: inline-block">
+    </div>
+</form>
+<!--CONTEUDO-->
+<% include ../estrutura/scripts.ejs %>
+</body>
+</html>
